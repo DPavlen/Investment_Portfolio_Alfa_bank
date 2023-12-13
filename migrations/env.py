@@ -4,14 +4,22 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+
+import os
+import sys
+# настройка чтобы видеть все необходимые файлы из src
+sys.path.append(os.path.join(sys.path[0], 'src'))
+
 # Импортируем все переменные окружения 
-from config import DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS
-# metadata и аккумулирует информацию с таблицами roles, users. 
-from auth.models import metadata
+from src.config import DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS
+# metadata и аккумулирует информацию c моделями.
+from src.auth.models import metadata as metadata_auth
+from src.operations.models import metadata as metadata_operations
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
 
 # Добавим следующие изменения с конфигом и добавим секцию и предадим данные.
 section = config.config_ini_section
@@ -26,13 +34,10 @@ config.set_section_option(section, "DB_PASS", DB_PASS)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-
-# В переменную target_metadata должны передать metadata из models
-target_metadata = metadata
+# add your model's MetaData object here or 'autogenerate' support
+# from myapp import mymodel target_metadata = mymodel.Base.metadata
+# В переменную target_metadata передаем массив данных metadata_auth, metadata_operations
+target_metadata = [metadata_auth, metadata_operations]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

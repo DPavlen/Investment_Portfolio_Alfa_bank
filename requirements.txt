@@ -1,6 +1,6 @@
 alembic
+asyncpg
 fastapi[all]
-psycopg2-binary
-psycopg2
+fastapi-users[sqlalchemy]
 python-dotenv
 sqlalchemy
