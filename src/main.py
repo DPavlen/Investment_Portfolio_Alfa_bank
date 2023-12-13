@@ -52,3 +52,6 @@ def protected_route(user: User = Depends(current_user)):
 def unprotected_route():
     """Незащищенный эндпойнт."""
     return f"Hello, anonym"
+
+
+app.include_router(router_operation)

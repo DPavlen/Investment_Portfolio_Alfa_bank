@@ -7,7 +7,7 @@ from alembic import context
 # Импортируем все переменные окружения 
 from config import DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS
 # metadata и аккумулирует информацию с таблицами roles, users. 
-from models.models import metadata
+from auth.models import metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

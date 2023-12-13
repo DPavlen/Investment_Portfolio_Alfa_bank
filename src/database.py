@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker #, Mapped, mapped_column
 
 from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS
-from models.models import role
+from src.auth.models import role
 
 
 #По умолчанию здесь стоит sqlite. Изменим на нашу БД Postresql с секретами из config.
@@ -48,10 +48,3 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     """Функцию получения асинхронной сессии."""
     async with async_session_maker() as session:
         yield session
-
-
-async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    """Функцию получения пользователя.
-    Depends - функция FastApi и она отвечает за инъекцию зависимостей(
-    использование в нащих функциях внешних функций)."""
-    yield SQLAlchemyUserDatabase(session, User)
