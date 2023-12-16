@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from auth.base_config import auth_backend, fastapi_users
 from auth.schemas import UserRead, UserCreate
 # from auth.models import User
-# from operations.router import router as router_operation
+from operations.router import router as router_operation
 
 # Далее создаем приложение, которое явл-ся экземпляром FastAPI,  зададим ему понятное имя
 app = FastAPI(
@@ -24,5 +24,5 @@ app.include_router(
     tags=["Auth"],
 )
 
-
-# app.include_router(router_operation)
+#Роутер из приложения operations
+app.include_router(router_operation)

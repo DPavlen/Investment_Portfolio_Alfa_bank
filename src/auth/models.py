@@ -18,7 +18,7 @@ role = Table(
     Column("permissions", JSON),
 )
 
-# Далее сделаем таблицу с юзерами
+# Далее сделаем таблицу с юзерами - интеративный метод подхода.
 user = Table(
     "user",
     metadata,
@@ -36,7 +36,8 @@ user = Table(
 
 #Изменяем тип UUID на ID в соответсвии с рекомендацией
 class User(SQLAlchemyBaseUserTable[int], Base):
-    """Класс User. Наследуемся от базовой таблицы пользователей SQLAlchemy.
+    """Декларативный метод подхода для SQLAlchemy.Рекомендует FastAPI_users
+    Класс User. Наследуемся от базовой таблицы пользователей SQLAlchemy.
     Поля email, hashed_password, is_active, is_superuser, is_verified из SQLAlchemyBaseUserTable.
     Часть полей добавим из модели users."""
     #TO DO new field, example Mapped[str] = mapped_column(...)

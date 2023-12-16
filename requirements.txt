@@ -1,5 +1,6 @@
 alembic
 asyncpg
+content-size-limit-asgi
 fastapi[all]
 fastapi-users[sqlalchemy]
 python-dotenv
