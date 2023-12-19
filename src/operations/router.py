@@ -16,11 +16,30 @@ router = APIRouter(
 async def get_specific_operations(operation_type: str, session: AsyncSession = Depends(get_async_session)):
     """Получаем сессию, под наш запрос. Выбираем все записи в таблице operations.
     Фильтруем по полю type."""
-    query = select(operation).where(operation.c.type == operation_type)
-    # print(query)
-    result = await session.execute(query)
-    return result.mappings().all()
-    # return result.all()
+    try:
+        query = select(operation).where(operation.c.type == operation_type)
+        result = await session.execute(query)
+        x = 1 / 0
+
+        # return result.mappings().all()
+        return{
+            "status": "success",
+            "data": None,
+            "details": "На ноль делить нельзя!!!"
+        }
+    except ZeroDivisionError:
+        return{
+            "status": "error",
+            "data": None,
+        "details": "На ноль делить нельзя!!!"
+        }
+    except:
+        return{
+            "status": "error",
+            "data": None,
+            "details": None
+        }
+    
 
 @router.post("/")
 async def add_specific_operations(new_operation: OperationCreate, session: AsyncSession = Depends(get_async_session)):
